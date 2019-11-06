@@ -1,0 +1,11 @@
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\bin\Debug\netcoreapp2.0\SequentialGearShiftingConsole.deps.json
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\bin\Debug\netcoreapp2.0\SequentialGearShiftingConsole.runtimeconfig.json
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\bin\Debug\netcoreapp2.0\SequentialGearShiftingConsole.runtimeconfig.dev.json
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\bin\Debug\netcoreapp2.0\SequentialGearShiftingConsole.dll
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\bin\Debug\netcoreapp2.0\SequentialGearShiftingConsole.pdb
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\obj\Debug\netcoreapp2.0\SequentialGearShiftingConsole.csprojAssemblyReference.cache
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\obj\Debug\netcoreapp2.0\SequentialGearShiftingConsole.csproj.CoreCompileInputs.cache
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\obj\Debug\netcoreapp2.0\SequentialGearShiftingConsole.AssemblyInfoInputs.cache
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\obj\Debug\netcoreapp2.0\SequentialGearShiftingConsole.AssemblyInfo.cs
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\obj\Debug\netcoreapp2.0\SequentialGearShiftingConsole.dll
+C:\SourceCode\TransitionProject\src\SequentialGearShiftingConsole\obj\Debug\netcoreapp2.0\SequentialGearShiftingConsole.pdb
