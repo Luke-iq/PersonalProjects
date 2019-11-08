@@ -30,3 +30,4 @@
 [Rr]elease*/
 log.txt*
 .vs/*
+/src/SequentialGearShiftingConsole/.vs/*
