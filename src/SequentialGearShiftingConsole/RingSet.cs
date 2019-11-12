@@ -2,29 +2,29 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SequentialGearShitingConsole
+namespace SequentialGearShiftingConsole
 {
     class RingSet
     {
         public RingSet()
         {
-            rings = new List<int>();
+            this._rings = new List<int>();
         }
-        public RingSet(List<int> newRings)
+        public RingSet(List<int> rings)
         {
-            rings = newRings;
+            this._rings = rings;
         }
 
         public List<int> GetRingSet()
         {
-            return rings;
+            return this._rings;
         }
 
-        public void SetRings(List<int> newRings)
+        public void SetRings(List<int> rings)
         {
-            rings = newRings;
+            this._rings = rings;
         }
 
-        private List<int> rings;
+        private List<int> _rings;
     }
 }

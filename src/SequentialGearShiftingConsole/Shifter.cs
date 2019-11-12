@@ -2,51 +2,51 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SequentialGearShitingConsole
+namespace SequentialGearShiftingConsole
 {
     class Shifter
     {
         public Shifter()
         {
-            curGear = -1;
-            gears = new RingSet();
+            this._curPos = -1;
+            this._rings = new RingSet();
 
         }
 
-        public Shifter(List<int> newRings)
+        public Shifter(List<int> rings)
         {
-            curGear = -1;
-            rings = new RingSet(newRings);
+            this._curPos = -1;
+            this._rings = new RingSet(rings);
         }
 
-        public int getCurGear()
+        public int GetCurGear()
         {
-            return curPos;
+            return _curPos;
         }
 
-        public RingSet getRingSet()
+        public RingSet GetRingSet()
         {
-            return rings;
+            return _rings;
         }
 
-        public int getRingCount()
+        public int GetRingCount()
         {
-            return rings.GetRingSet().Count;
+            return _rings.GetRingSet().Count;
         }
 
-        public void SettingGears(List<int> newRings)
+        public void SettingGears(List<int> rings)
         {
-            curPos = 0;
-            rings = new RingSet(newRings);
+            this._curPos = 0;
+            this._rings = new RingSet(rings);
             
         }
-        public void setCurGear(int newPos)
+        public void SetCurGear(int newPos)
         {
-            curPos = newPos;
+            this._curPos = newPos;
         }
 
-        private int curPos;
-        private RingSet rings;
+        private int _curPos;
+        private RingSet _rings;
 
     }
 }

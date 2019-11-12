@@ -31,3 +31,4 @@
 log.txt*
 .vs/*
 /src/SequentialGearShiftingConsole/.vs/*
+/src/SequentialGearShiftingConsole/packages/*

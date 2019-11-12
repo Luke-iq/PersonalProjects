@@ -1,65 +1,83 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SequentialGearShitingConsole
+namespace SequentialGearShiftingConsole
 {
     class Bike
     {
         public Bike()
         {
-            frontShifter = new Shifter();
-            rearShifter = new Shifter();
-            frontShiftBiased = false;
+            _frontShifter = new Shifter();
+            _rearShifter = new Shifter();
+            _gearBox = new Hashtable();
+            _frontShiftBiased = false;
         }
 
         public Bike(List<int> frontRings, List<int> rearRings)
         {
-            frontShifter = new Shifter(frontRings);
-            rearShifter = new Shifter(rearRings);
-            frontShiftBiased = false;
+            _frontShifter = new Shifter(frontRings);
+            _rearShifter = new Shifter(rearRings);
+            _gearBox = new Hashtable();
+            _frontShiftBiased = false;
         }
 
-        public bool isFrontShiftBiased()
+        public bool IsFrontShiftBiased()
         {
-            return frontShiftBiased;
+            return _frontShiftBiased;
         }
 
-        public Shifter getFrontShifter()
+        public Shifter GetShifter(string shifterType)
         {
-            return frontShifter;
+            switch(shifterType.ToLower())
+            {
+                case "front":
+                    return _frontShifter;
+                    
+
+                case "rear":
+                    return _rearShifter;
+                    
+
+                default:
+                    Console.WriteLine($"***ERROR*** TRYING TO GET UNKNOWN SHIFTER TYPE {shifterType}");
+                    return null;
+
+            }
         }
 
-        public Shifter getRearShifter()
+        public void SetShifterRings(string shifterType, List<int> rings)
         {
-            return rearShifter;
-        }
-
-        public void setFrontShifterGears(List<int> newRings)
-        {
-            if (newRings.Count <= 0)
+            if (rings.Count <= 0)
             {
                 Console.WriteLine("***ERROR*** TRYING TO SETUP FRONT SHIFTER WITH EMPTY GEARS");
             }
 
-            frontShifter.SettingGears(newGears);
-
-        }
-
-        public void setRearShifterGears(List<int> newRings)
-        {
-            if (newRings.Count <= 0)
+            switch (shifterType.ToLower())
             {
-                Console.WriteLine("***ERROR*** TRYING TO SETUP REAR SHIFTER WITH EMPTY GEARS");
-            }
+                case "front":   
+                    _frontShifter.SettingGears(rings);
+                    break;
 
-            rearShifter.SettingGears(newRings);
+                case "rear":
+                    _rearShifter.SettingGears(rings);
+                    break;
+
+                default:
+                    Console.WriteLine($"***ERROR*** TRYING TO SETUP UNKNOWN SHIFTER TYPE {shifterType}");
+                    break;
+            }
         }
 
+        // Probably should just use array of shifter and use some global const to differentiate front and rear
+        private Shifter _frontShifter;
+        private Shifter _rearShifter;
+
+        // flag for picking shiting priority when same ratio can be produced by different combination
+        private bool _frontShiftBiased;
 
 
-        private Shifter frontShifter;
-        private Shifter rearShifter;
-        private bool frontShiftBiased;
+        private Hashtable _gearBox;
     }
 }
