@@ -4,49 +4,51 @@ using System.Text;
 
 namespace SequentialGearShiftingConsole
 {
-    class Shifter
+    class Shifter : IShifter
     {
-        public Shifter()
+        public Shifter(IRingSet ringSet)
         {
             this._curPos = -1;
-            this._rings = new RingSet();
-
-        }
-
-        public Shifter(List<int> rings)
-        {
-            this._curPos = -1;
-            this._rings = new RingSet(rings);
-        }
-
-        public int GetCurGear()
-        {
-            return _curPos;
-        }
-
-        public RingSet GetRingSet()
-        {
-            return _rings;
+            this._rings = ringSet;
         }
 
         public int GetRingCount()
         {
-            return _rings.GetRingSet().Count;
+            return _rings.RingCount;
         }
 
-        public void SettingGears(List<int> rings)
+        public void SettingGears(IRingSet ringSet)
         {
-            this._curPos = 0;
-            this._rings = new RingSet(rings);
+            _curPos = 0;
+            _rings = ringSet;
             
         }
-        public void SetCurGear(int newPos)
+        public int CurPos
         {
-            this._curPos = newPos;
+            get { return _curPos; }
+            set { _curPos = value;  }
         }
 
+        public IRingSet Rings
+        {
+            get { return _rings;  }
+        }
+
+
         private int _curPos;
-        private RingSet _rings;
+        private IRingSet _rings;
+
+    }
+
+    internal interface IShifter
+    {
+        IRingSet Rings { get; }
+
+        int CurPos { get; set; }
+
+        int GetRingCount();
+
+        void SettingGears(IRingSet ringSet);
 
     }
 }

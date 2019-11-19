@@ -4,27 +4,52 @@ using System.Text;
 
 namespace SequentialGearShiftingConsole
 {
-    class RingSet
+    public class RingSet : IRingSet
     {
-        public RingSet()
+        public int[] Rings
         {
-            this._rings = new List<int>();
+            get { return _rings; }
+            set
+            {
+                _rings = value;
+                _ringCount = _rings.Length;
+            }
         }
-        public RingSet(List<int> rings)
+
+        public int RingCount
+        {
+            get { return _ringCount; }
+        }
+
+        //public RingSet(int[] rings)
+        //{
+        //    this._rings = rings;
+        //    this._ringCount = rings.Length;
+        //}
+
+        public void SetRings(int[] rings)
         {
             this._rings = rings;
+            this._ringCount = rings.Length;
         }
 
-        public List<int> GetRingSet()
+        private int[] _rings;
+        private int _ringCount;
+    }
+
+    public interface IRingSet
+    {
+        int[] Rings
         {
-            return this._rings;
+            get;
+            set;
         }
 
-        public void SetRings(List<int> rings)
+        int RingCount
         {
-            this._rings = rings;
+            get;
         }
 
-        private List<int> _rings;
+        void SetRings(int[] rings);
     }
 }

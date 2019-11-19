@@ -1,33 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace SequentialGearShiftingConsole
 {
-    class GearRatio
+    public class GearRatio : IGearRatio
     {
-        public GearRatio()
+        public GearRatio(double ratio, List<int[]> combinations)
         {
-            _ratio = 0.0;
-            _combination = new List<int[]>();
+            _ratio = ratio;
+            _combinations = combinations;
         }
 
-        public GearRatio(int frontRingSize, int rearRingSize)
+        public void SetGearRatio(double ratio, int[] combination)
         {
-            _ratio = frontRingSize / rearRingSize;
-            _combination = new List<int[]>
-            {
-                new int[] { frontRingSize, rearRingSize}
-            };
+            _ratio = ratio;
+            _combinations = new List<int[]> {combination};
         }
 
-        public void AddCombination(int frontRingSize, int rearRingSize)
+        public void AddCombination(int[] combination)
         {
-            _combination.Add(new int[] { frontRingSize, rearRingSize });
+            _combinations.Add(combination);
+        }
+
+        public double Ratio
+        {
+            get { return _ratio; }
+        }
+        public List<int[]> Combinations
+        {
+            get { return _combinations; }
         }
 
         double _ratio;
-        List<int[]> _combination;
+        List<int[]> _combinations;
 
+    }
+    public interface IGearRatio
+    {
+        void SetGearRatio(double ratio, int[] combination);
+
+        void AddCombination(int[] combination);
+
+        double Ratio
+        {
+            get;
+        }
+
+        List<int[]> Combinations
+        {
+            get;
+        }
     }
 }

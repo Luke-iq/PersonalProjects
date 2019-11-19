@@ -7,25 +7,22 @@ namespace SequentialGearShiftingConsole
 {
     class Bike
     {
-        public Bike()
-        {
-            _frontShifter = new Shifter();
-            _rearShifter = new Shifter();
-            _gearBox = new Hashtable();
-            _frontShiftBiased = false;
-        }
-
-        public Bike(List<int> frontRings, List<int> rearRings)
+        public Bike(IRingSet frontRings, IRingSet rearRings)
         {
             _frontShifter = new Shifter(frontRings);
             _rearShifter = new Shifter(rearRings);
-            _gearBox = new Hashtable();
+            _gearBox = new GearBox(_frontShifter.Rings, _rearShifter.Rings);
             _frontShiftBiased = false;
         }
 
         public bool IsFrontShiftBiased()
         {
             return _frontShiftBiased;
+        }
+
+        public IGearBox GetGearBox()
+        {
+            return _gearBox;
         }
 
         public Shifter GetShifter(string shifterType)
@@ -43,13 +40,12 @@ namespace SequentialGearShiftingConsole
                 default:
                     Console.WriteLine($"***ERROR*** TRYING TO GET UNKNOWN SHIFTER TYPE {shifterType}");
                     return null;
-
             }
         }
 
-        public void SetShifterRings(string shifterType, List<int> rings)
+        public void SetShifterRings(string shifterType, IRingSet rings)
         {
-            if (rings.Count <= 0)
+            if (rings.RingCount <= 0)
             {
                 Console.WriteLine("***ERROR*** TRYING TO SETUP FRONT SHIFTER WITH EMPTY GEARS");
             }
@@ -68,6 +64,7 @@ namespace SequentialGearShiftingConsole
                     Console.WriteLine($"***ERROR*** TRYING TO SETUP UNKNOWN SHIFTER TYPE {shifterType}");
                     break;
             }
+            _gearBox.SetGearBox(_frontShifter.Rings, _rearShifter.Rings);
         }
 
         // Probably should just use array of shifter and use some global const to differentiate front and rear
@@ -78,6 +75,6 @@ namespace SequentialGearShiftingConsole
         private bool _frontShiftBiased;
 
 
-        private Hashtable _gearBox;
+        private IGearBox _gearBox;
     }
 }
