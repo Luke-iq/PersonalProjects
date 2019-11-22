@@ -4,20 +4,14 @@ using System.Text;
 
 namespace SequentialGearShiftingConsole
 {
-    class Shifter : IShifter
+    public class Shifter : IShifter
     {
-        public Shifter(IRingSet ringSet)
-        {
-            this._curPos = -1;
-            this._rings = ringSet;
-        }
-
         public int GetRingCount()
         {
             return _rings.RingCount;
         }
 
-        public void SettingGears(IRingSet ringSet)
+        public void SettingGears(RingSet ringSet)
         {
             _curPos = 0;
             _rings = ringSet;
@@ -29,26 +23,27 @@ namespace SequentialGearShiftingConsole
             set { _curPos = value;  }
         }
 
-        public IRingSet Rings
+        public RingSet Rings
         {
             get { return _rings;  }
+            set { _curPos = 0; _rings = value; }
         }
 
 
         private int _curPos;
-        private IRingSet _rings;
+        private RingSet _rings;
 
     }
 
-    internal interface IShifter
+    public interface IShifter
     {
-        IRingSet Rings { get; }
+        RingSet Rings { get; set; }
 
         int CurPos { get; set; }
 
         int GetRingCount();
 
-        void SettingGears(IRingSet ringSet);
+        void SettingGears(RingSet ringSet);
 
     }
 }

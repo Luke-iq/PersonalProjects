@@ -6,12 +6,12 @@ namespace SequentialGearShiftingConsole
 {
     class GearBox : IGearBox
     {
-        public GearBox(IRingSet frontRings, IRingSet rearRings)
+        public GearBox(RingSet frontRings, RingSet rearRings)
         {
             SetGearBox(frontRings, rearRings);
         }
 
-        public void SetGearBox(IRingSet frontRings, IRingSet rearRings)
+        public void SetGearBox(RingSet frontRings, RingSet rearRings)
         {
             Dictionary<double, List<int[]>> newGearBox = new Dictionary<double, List<int[]>>();
             List<int[]> combination = new List<int[]>();
@@ -55,9 +55,9 @@ namespace SequentialGearShiftingConsole
         private IGearRatio[] _gearBox;
     }
 
-    internal interface IGearBox
+    public interface IGearBox
     {
-        void SetGearBox(IRingSet frontShifter, IRingSet rearShifter);
+        void SetGearBox(RingSet frontShifter, RingSet rearShifter);
         IGearRatio[] Gears { get; }
 
 

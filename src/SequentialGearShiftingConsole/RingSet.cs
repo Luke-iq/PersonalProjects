@@ -21,12 +21,6 @@ namespace SequentialGearShiftingConsole
             get { return _ringCount; }
         }
 
-        //public RingSet(int[] rings)
-        //{
-        //    this._rings = rings;
-        //    this._ringCount = rings.Length;
-        //}
-
         public void SetRings(int[] rings)
         {
             this._rings = rings;
@@ -39,16 +33,9 @@ namespace SequentialGearShiftingConsole
 
     public interface IRingSet
     {
-        int[] Rings
-        {
-            get;
-            set;
-        }
+        int[] Rings { get; set; }
 
-        int RingCount
-        {
-            get;
-        }
+        int RingCount { get; }
 
         void SetRings(int[] rings);
     }

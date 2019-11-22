@@ -29,11 +29,11 @@ namespace SequentialGearShiftingConsole
         static void Main(string[] args)
         {
             char input = '_';
-            IRingSet chainring = new RingSet();
-            chainring.Rings = new int[] { 0 };
-            IRingSet cassette = new RingSet();
-            cassette.Rings = new int[] {0};
-            Bike myBike = new Bike(chainring, cassette);
+            
+            RingSet chainring = new RingSet {Rings = new int[]{} };
+            RingSet cassette = new RingSet {Rings = new int[]{} };
+
+            Bike myBike = new Bike();
 
             while (input != 'x')
             {
@@ -45,17 +45,16 @@ namespace SequentialGearShiftingConsole
                     case 'n':
                         Console.WriteLine("\nCreating new bike");
                         chainring.Rings = new int[] { 32, 22 };
-                        myBike.SetShifterRings("front", chainring);
                         cassette.Rings = new int[] {11, 13, 15, 17, 19, 21, 24, 28, 32, 37, 46 };
-                        myBike.SetShifterRings("rear", cassette);
+                        myBike.SetBike(chainring, cassette);
                         PrintGearCombinations(myBike.GetGearBox());
                         break;
 
                     case 'g':
                         Console.WriteLine("\nGetting current bike");
-                        Console.WriteLine($"Current bike has {myBike.GetShifter("front").GetRingCount()} chainring(s)");
+                        Console.WriteLine($"Current bike has {myBike.GetShifterRingCounts("front")} chainring(s)");
                         Console.WriteLine($"Front shifter is current at {myBike.GetShifter("front").CurPos+1} chainring");
-                        Console.WriteLine($"Current bike has {myBike.GetShifter("rear").GetRingCount()} ring(s)");
+                        Console.WriteLine($"Current bike has {myBike.GetShifterRingCounts("rear")} ring(s)");
                         Console.WriteLine($"Rear shifter is current at {myBike.GetShifter("rear").CurPos+1} ring");
                         PrintGearCombinations(myBike.GetGearBox());
                         break;
