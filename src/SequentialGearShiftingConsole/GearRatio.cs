@@ -12,27 +12,15 @@ namespace SequentialGearShiftingConsole
             _gearRatios = new double[chainring.Length * cassette.Length];
             int gearCount = 0;
             
-            for (int chainringPos = 0; chainringPos < chainring.Length; chainringPos++)
+            for(int chainringPos = 0; chainringPos < chainring.Length; chainringPos++)
             {
-                for (int cassettePos = 0; cassettePos < cassette.Length; cassettePos++)
+                for(int cassettePos = 0; cassettePos < cassette.Length; cassettePos++)
                 {
                     double ratio = Math.Round((double)chainring[chainringPos] / cassette[cassettePos] , 2);
                     _gearRatios[gearCount] = ratio;
-                    int[] combinaiton = new int[] { chainring[chainringPos], cassette[cassettePos] };
-                    _ratioCombination.Add(ratio, combinaiton);
+                    int[] combination = new int[] { chainring[chainringPos], cassette[cassettePos] };
+                    _ratioCombination.Add(ratio, combination);
                     gearCount++;
-                    //int[] newCombination = { frontRingPos, rearRingPos };
-
-                    //if (newGearBox.ContainsKey(ratio))
-                    //{
-                    //    newGearBox[ratio].Add(newCombination);
-                    //}
-                    //else
-                    //{
-                    //    List<int[]> newCombinations = new List<int[]> { newCombination };
-                    //    newGearBox.Add(ratio, newCombinations);
-                    //    debugGearCount++;
-                    //}
                 }
             }
             Array.Sort(_gearRatios);
@@ -77,17 +65,14 @@ namespace SequentialGearShiftingConsole
 
         //IEnumerable
         public void Reset()
-        { position = 0; }
+        { position = -1; }
 
         //IEnumerable
-        public object Current
-        {
-            get { return _gearRatios[position]; }
-        }
+        public object Current => _gearRatios[position];
         public double[] _gearRatios { get; }
 
         private Hashtable _ratioCombination = new Hashtable();
-        int position = -1;
+        private int position = -1;
     }
 
     public class RatioNotFoundException : Exception
