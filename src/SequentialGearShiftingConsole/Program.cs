@@ -15,14 +15,14 @@ namespace SequentialGearShiftingConsole
             Console.Write("Selection: ");
         }
 
-        static void PrintAvailableGearRatios(GearRatio gears)
+        static void PrintAvailableGearRatios(GearRatios gears)
         {
             string gearRatios = "\t\t";
-            foreach (double ratio in gears._gearRatios)
+            foreach (double ratio in gears.GetAllAvailableGearRatios())
             {
                 gearRatios +=  ratio+" ";
             }
-            Console.WriteLine("\tHere are the available gear ratios");
+            Console.WriteLine("\n\tHere are the available gear ratios");
             Console.WriteLine(gearRatios+"\n");
         }
 
@@ -36,9 +36,8 @@ namespace SequentialGearShiftingConsole
         {
             char input = '_';
             var chainring = new int[] { 32, 22 };
-            var cassette = new int[] { 24, 36, 40 };
-            Drivetrain myDrivetrain;
-            myDrivetrain = new Drivetrain(chainring, cassette);
+            var cassette = new int[] { 11, 13, 15, 17, 19, 21, 24, 28, 32, 37, 46 };
+            Drivetrain myDrivetrain = new Drivetrain(chainring, cassette);
 
             Console.WriteLine("Bicycle sequential gear shitting simulator\n");
             while (input != 'x')
@@ -49,11 +48,27 @@ namespace SequentialGearShiftingConsole
                 switch (input)
                 {
                     case 'u':
-                        myDrivetrain.Shift(ShiftDirection.Up);
+                        try
+                        {
+                            myDrivetrain.Shift(ShiftDirection.Up);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"\n{ex.Message}");
+                        }
+
                         break;
 
                     case 'd':
-                        myDrivetrain.Shift(ShiftDirection.Down);
+                        try
+                        {
+                            myDrivetrain.Shift(ShiftDirection.Down);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"\n{ex.Message}");
+                        }
+
                         break;
 
                     default:

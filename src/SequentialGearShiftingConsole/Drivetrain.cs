@@ -1,4 +1,6 @@
-﻿namespace SequentialGearShiftingConsole
+﻿using System;
+
+namespace SequentialGearShiftingConsole
 {
     public class Drivetrain
     {
@@ -7,7 +9,7 @@
             _chainrings = chainrings;
             _cassette = cassette;
 
-            _gears = new GearRatio(_chainrings, _cassette);
+            _gears = new GearRatios(chainrings, cassette);
 
             _currentGear = 0;
         }
@@ -17,7 +19,7 @@
             _chainrings = chainrings;
             _cassette = cassette;
 
-            _gears = new GearRatio(_chainrings, _cassette);
+            _gears = new GearRatios(_chainrings, _cassette);
 
             _currentGear = 0;
         }
@@ -32,21 +34,29 @@
             return _cassette;
         }
 
-        public GearRatio Gears()
+        public GearRatios Gears()
         {
             return _gears;
         }
 
+
         public void Shift(ShiftDirection shiftDirection)
         {
-            if (shiftDirection == ShiftDirection.Up && _currentGear < _gears.GearCount() - 1)
+            bool canShiftUp = _currentGear < _gears.NumberOfGears() - 1;
+            bool canShiftDown = _currentGear > 0;
+
+            if (shiftDirection == ShiftDirection.Up && canShiftUp)
                 _currentGear++;
-            else if (shiftDirection == ShiftDirection.Down && _currentGear > 0)
+            else if (shiftDirection == ShiftDirection.Down && canShiftDown)
                 _currentGear--;
+            else
+            {
+                throw new InvalidShiftOperationException($"Unable to shift {shiftDirection} from current gear: {_currentGear+1}");
+            }
         }
         public int[] CurrentGearCombination()
         {
-            return _gears.GetCombinationByIndex(_currentGear);
+            return _gears.GetCombinationByGearIndex(_currentGear);
         }
         public int CurrentGear()
         {
@@ -54,10 +64,10 @@
         }
         public double CurrentRatio()
         {
-            return _gears._gearRatios[_currentGear];
+            return _gears.GetAllAvailableGearRatios()[_currentGear];
         }
 
-        private GearRatio _gears;
+        private GearRatios _gears;
         private int[] _chainrings;
         private int[] _cassette;
         private int _currentGear;
@@ -67,5 +77,13 @@
     {
         Up,
         Down
+    }
+
+    public class InvalidShiftOperationException : Exception
+    {
+        public InvalidShiftOperationException(string message)
+            : base(message)
+        {
+        }
     }
 }
