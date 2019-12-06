@@ -78,11 +78,8 @@ namespace SequentialGearShiftingConsole
                     default:
                         Console.WriteLine($"\nUnknown input char: {input}");
                         break;
-
                 }
-
             }
-
         }
     }
 }

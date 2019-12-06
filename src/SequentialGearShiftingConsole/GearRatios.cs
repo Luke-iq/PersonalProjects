@@ -13,7 +13,9 @@ namespace SequentialGearShiftingConsole
         public GearRatios(int[] chainrings, int[] cassette)
         {
             if (chainrings.Length <= 0 || cassette.Length <= 0)
+            {
                 throw new InvalidInputException("Invalid input for chainrings/cassette");
+            }
 
             List<double> gearList = new List<double>();
 
@@ -41,7 +43,9 @@ namespace SequentialGearShiftingConsole
         public int[] GetCombinationByGearRatio(double ratio)
         {
             if (!_ratioCombination.ContainsKey(ratio))
+            {
                 throw new RatioNotFoundException($"Gear ratio: {ratio} can NOT be produced by current drivetrain.");
+            }
 
             int[] ringCombination = (int [])_ratioCombination[ratio];
             return ringCombination;
@@ -50,7 +54,9 @@ namespace SequentialGearShiftingConsole
         public int[] GetCombinationByGearIndex(int gearIndex)
         {
             if (gearIndex < 0 || gearIndex >= _gearRatios.Length)
+            {
                 throw new RatioNotFoundException($"Gear ratio index: {gearIndex} out of range");
+            }
 
             double ratio = _gearRatios[gearIndex];
             int[] ringCombination = (int[])_ratioCombination[ratio];
@@ -60,7 +66,9 @@ namespace SequentialGearShiftingConsole
         public double GetRatioByGearIndex(int gearIndex)
         {
             if (gearIndex < 0 || gearIndex >= _gearRatios.Length)
+            {
                 throw new RatioNotFoundException($"Gear ratio index: {gearIndex} out of range");
+            }
 
             return _gearRatios[gearIndex];
         }
@@ -75,14 +83,21 @@ namespace SequentialGearShiftingConsole
             var crossChainingCassetRingCountForHighestChainring = (cassette.Length / 4);
 
 
-            if (chainrings.Length < minimumNumberOfChainForCrossChainingToOccur || cassette.Length < minimumNumberOfCassetteRingsForCrossChainingToOccur)
+            if (chainrings.Length < minimumNumberOfChainForCrossChainingToOccur ||
+                cassette.Length < minimumNumberOfCassetteRingsForCrossChainingToOccur)
+            {
                 return false;
+            }
 
             if (chainringPos == lowestChainring && cassettePos >= crossChainingCassetRingCountForLowestChainring)
+            {
                 return true;
+            }
 
             if (chainringPos == highestChainring && cassettePos <= crossChainingCassetRingCountForHighestChainring)
+            {
                 return true;
+            }
 
             return false;
         }

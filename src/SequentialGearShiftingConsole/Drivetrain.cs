@@ -34,9 +34,13 @@ namespace SequentialGearShiftingConsole
             bool canShiftDown = _currentGear > 0;
 
             if (shiftDirection == ShiftDirection.Up && canShiftUp)
+            {
                 _currentGear++;
+            }
             else if (shiftDirection == ShiftDirection.Down && canShiftDown)
+            {
                 _currentGear--;
+            }
             else
             {
                 throw new InvalidShiftOperationException($"Unable to shift {shiftDirection} from current gear: {_currentGear+1}");
