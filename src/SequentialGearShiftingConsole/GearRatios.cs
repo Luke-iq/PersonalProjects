@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using SequentialGearShiftingConsole.Exceptions;
 
 namespace SequentialGearShiftingConsole
@@ -14,9 +15,9 @@ namespace SequentialGearShiftingConsole
             if (chainrings.Length <= 0 || cassette.Length <= 0)
                 throw new InvalidInputException("Invalid input for chainrings/cassette");
 
-            _gearRatios = new double[chainrings.Length * cassette.Length];
+            List<double> gearList = new List<double>();
+
             _ratioCombination = new Hashtable();
-            int gearCount = 0;
             
             for(int chainringPos = 0; chainringPos < chainrings.Length; chainringPos++)
             {
@@ -25,15 +26,15 @@ namespace SequentialGearShiftingConsole
                     if (!IsCrossChaining(chainrings, chainringPos, cassette, cassettePos))
                     {
                         double ratio = Math.Round((double) chainrings[chainringPos] / cassette[cassettePos], 2);
-                        _gearRatios[gearCount] = ratio;
-                        gearCount++;
-
+                        gearList.Add(ratio);
+                        
                         int[] combination = new int[] {chainrings[chainringPos], cassette[cassettePos]};
                         _ratioCombination.Add(ratio, combination);
                     }
                 }
             }
-            Array.Resize(ref _gearRatios, gearCount);
+
+            _gearRatios = gearList.ToArray();
             Array.Sort(_gearRatios);
         }
 
