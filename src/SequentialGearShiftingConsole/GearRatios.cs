@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
+using SequentialGearShiftingConsole.Exceptions;
 
 namespace SequentialGearShiftingConsole
 {
     public class GearRatios
     {
+        private double[] _gearRatios;
+        private Hashtable _ratioCombination;
+
         public GearRatios(int[] chainrings, int[] cassette)
         {
             if (chainrings.Length <= 0 || cassette.Length <= 0)
@@ -52,21 +56,31 @@ namespace SequentialGearShiftingConsole
             return ringCombination;
         }
 
-        //Cross Chaining (above) as the condition where the chain is running across the drivetrain centerline.
-        //In truth, it’s more like running to extremes across the drivetrain centerline.
-        //In general, use the biggest 1/4 of the cassette with the big ring,
-        //and the smallest 1/4 of the cassette with the small ring,
-        //are considered cross chaining.
-        //Cross chaining does not occur when there is only single chainring or number of cassette is less than 7. 
+        public double GetRatioByGearIndex(int gearIndex)
+        {
+            if (gearIndex < 0 || gearIndex >= _gearRatios.Length)
+                throw new RatioNotFoundException($"Gear ratio index: {gearIndex} out of range");
+
+            return _gearRatios[gearIndex];
+        }
+
         public bool IsCrossChaining(int[] chainrings, int chainringPos, int[] cassette, int cassettePos)
         {
-            if(chainrings.Length == 1 || cassette.Length < 7)
+            var minimumNumberOfChainForCrossChainingToOccur = 2;
+            var minimumNumberOfCassetteRingsForCrossChainingToOccur = 7;
+            var lowestChainring = 0;
+            var highestChainring = chainrings.Length - 1;
+            var crossChainingCassetRingCountForLowestChainring = (cassette.Length * 3 / 4);
+            var crossChainingCassetRingCountForHighestChainring = (cassette.Length / 4);
+
+
+            if (chainrings.Length < minimumNumberOfChainForCrossChainingToOccur || cassette.Length < minimumNumberOfCassetteRingsForCrossChainingToOccur)
                 return false;
 
-            if (chainringPos == 0 && cassettePos >= (cassette.Length * 3 / 4))
+            if (chainringPos == lowestChainring && cassettePos >= crossChainingCassetRingCountForLowestChainring)
                 return true;
 
-            if (chainringPos == chainrings.Length - 1 && cassettePos <= (cassette.Length / 4))
+            if (chainringPos == highestChainring && cassettePos <= crossChainingCassetRingCountForHighestChainring)
                 return true;
 
             return false;
@@ -80,25 +94,6 @@ namespace SequentialGearShiftingConsole
         public int NumberOfGears()
         {
             return _gearRatios.Length;
-        }
-
-        private double[] _gearRatios;
-        private Hashtable _ratioCombination;
-    }
-
-    public class RatioNotFoundException : Exception
-    {
-        public RatioNotFoundException(string message)
-           : base(message)
-        {
-        }
-    }
-
-    public class InvalidInputException : Exception
-    {
-        public InvalidInputException(string message)
-            : base(message)
-        {
         }
     }
 }

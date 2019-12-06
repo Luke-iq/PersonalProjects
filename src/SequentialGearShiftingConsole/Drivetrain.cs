@@ -1,37 +1,25 @@
-﻿using System;
+﻿using SequentialGearShiftingConsole.Definitions;
+using SequentialGearShiftingConsole.Exceptions;
 
 namespace SequentialGearShiftingConsole
 {
     public class Drivetrain
     {
-        public Drivetrain(int[] chainrings, int[] cassette)
-        {
-            _chainrings = chainrings;
-            _cassette = cassette;
+        private GearRatios _gears;
+        private int _currentGear;
 
-            _gears = new GearRatios(chainrings, cassette);
+        public Drivetrain(GearRatios gears)
+        {
+            _gears = gears;
 
             _currentGear = 0;
         }
 
-        public void SetDrivetrain(int[] chainrings, int[] cassette)
+        public void SetDrivetrain(GearRatios gears)
         {
-            _chainrings = chainrings;
-            _cassette = cassette;
-
-            _gears = new GearRatios(_chainrings, _cassette);
+            _gears = gears;
 
             _currentGear = 0;
-        }
-
-        public int[] Chainrings()
-        {
-            return _chainrings;
-        }
-
-        public int[] Cassette()
-        {
-            return _cassette;
         }
 
         public GearRatios Gears()
@@ -64,26 +52,7 @@ namespace SequentialGearShiftingConsole
         }
         public double CurrentRatio()
         {
-            return _gears.GetAllAvailableGearRatios()[_currentGear];
-        }
-
-        private GearRatios _gears;
-        private int[] _chainrings;
-        private int[] _cassette;
-        private int _currentGear;
-
-    }
-    public enum ShiftDirection
-    {
-        Up,
-        Down
-    }
-
-    public class InvalidShiftOperationException : Exception
-    {
-        public InvalidShiftOperationException(string message)
-            : base(message)
-        {
+            return _gears.GetRatioByGearIndex(_currentGear);
         }
     }
 }
